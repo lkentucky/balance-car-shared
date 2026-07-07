@@ -99,7 +99,8 @@ int main(void)
   Motor_Init();
   Encoder_Init();
   SpeedCtrl_Init();
-  SpeedCtrl_SetTarget(100, 100);
+  SpeedCtrl_SetTarget(200, 200);
+  MpuApp_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,6 +112,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
     Encoder_Task();
     SpeedCtrl_Task();
+    MpuApp_Task();
     HAL_Delay(1);
   }
   /* USER CODE END 3 */

@@ -8,14 +8,14 @@ build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Include/core_cm3.h
-build\speed_ctrl.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+build\speed_ctrl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Include/cmsis_version.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 build\speed_ctrl.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-build\speed_ctrl.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+build\speed_ctrl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 build\speed_ctrl.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h

@@ -1,9 +1,9 @@
 build\inv_mpu.o: ../MPU6050/inv_mpu.c
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 build\inv_mpu.o: ../Core/Inc/main.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 build\inv_mpu.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -18,7 +18,7 @@ build\inv_mpu.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 build\inv_mpu.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-build\inv_mpu.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+build\inv_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 build\inv_mpu.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
