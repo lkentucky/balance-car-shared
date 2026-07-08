@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../MPU6050</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../MPU6050;..\OLED-Driver</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -407,6 +407,16 @@
               <FileName>encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>speed_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\speed_ctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>speed_ctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\speed_ctrl.h</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -488,16 +498,6 @@
               <FileName>stm32f1xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f1xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>speed_ctrl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\speed_ctrl.c</FilePath>
-            </File>
-            <File>
-              <FileName>speed_ctrl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\speed_ctrl.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -659,6 +659,26 @@
               <FileName>system_stm32f1xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/system_stm32f1xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>OLED-Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\OLED-Driver\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\OLED-Driver\oled.h</FilePath>
+            </File>
+            <File>
+              <FileName>oledfont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\OLED-Driver\oledfont.h</FilePath>
             </File>
           </Files>
         </Group>

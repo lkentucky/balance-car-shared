@@ -34,4 +34,5 @@ objects\main.o: ../Core/Inc/gpio.h
 objects\main.o: ../Core/Inc/encoder.h
 objects\main.o: ../Core/Inc/mpu_app.h
 objects\main.o: ../Core/Inc/motor.h
+objects\main.o: ..\OLED-Driver\oled.h
 objects\main.o: ../Core/Inc/speed_ctrl.h

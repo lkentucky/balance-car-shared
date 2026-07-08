@@ -3,13 +3,13 @@
 "objects\motor.o"
 "objects\mpu_app.o"
 "objects\encoder.o"
+"objects\speed_ctrl.o"
 "objects\main.o"
 "objects\gpio.o"
 "objects\tim.o"
 "objects\usart.o"
 "objects\stm32f1xx_it.o"
 "objects\stm32f1xx_hal_msp.o"
-"objects\speed_ctrl.o"
 "objects\stm32_i2c.o"
 "objects\mpu6050.o"
 "objects\inv_mpu.o"
@@ -29,6 +29,7 @@
 "objects\stm32f1xx_hal_exti.o"
 "objects\stm32f1xx_hal_uart.o"
 "objects\system_stm32f1xx.o"
+"objects\oled.o"
 --strict --scatter "Objects\car.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

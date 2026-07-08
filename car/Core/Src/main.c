@@ -27,6 +27,7 @@
 #include "encoder.h"
 #include "mpu_app.h"
 #include "motor.h"
+#include "oled.h"
 #include "speed_ctrl.h"
 /* USER CODE END Includes */
 
@@ -91,6 +92,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+	
+  OLED_Init();
+  OLED_Clear();
+  OLED_ShowString(0, 0, (u8 *)"OLED OK");
+  OLED_ShowNumber(0, 16, 1234, 4, 12);
+  OLED_Refresh_Gram();
+	
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM8_Init();
@@ -189,5 +197,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/* by codex */
+// by codex

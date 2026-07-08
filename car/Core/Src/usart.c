@@ -140,4 +140,3 @@ int fputc(int ch, FILE *f)
 
 /* USER CODE END 1 */
 
-/* by codex */
