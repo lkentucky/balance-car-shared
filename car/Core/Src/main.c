@@ -29,6 +29,7 @@
 #include "motor.h"
 #include "oled.h"
 #include "speed_ctrl.h"
+#include "bluetooth.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,11 +104,13 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM8_Init();
   MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   Motor_Init();
   Encoder_Init();
   SpeedCtrl_Init();
   SpeedCtrl_SetTarget(500, 500);
+  Bluetooth_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,6 +167,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  Bluetooth_UART_RxCpltCallback(huart);
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  Bluetooth_UART_ErrorCallback(huart);
+}
 
 /* USER CODE END 4 */
 
