@@ -7,6 +7,7 @@
 #define ENCODER_PI_X1000 3142L
 #define ENCODER_LEFT_INVERT 0U
 #define ENCODER_RIGHT_INVERT 1U
+#define ENCODER_ENABLE_REPORT 0U
 
 typedef struct
 {
@@ -38,7 +39,9 @@ void Encoder_Init(void)
   Encoder_StartTimer(&htim4);
   Encoder_StartTimer(&htim8);
   Encoder_Reset();
+#if ENCODER_ENABLE_REPORT
   printf("encoder init ok, cpr=%ld\r\n", (long)ENCODER_COUNTS_PER_WHEEL_REV);
+#endif
 }
 
 void Encoder_Task(void)
@@ -64,11 +67,15 @@ void Encoder_Task(void)
   Encoder_UpdateChannel(&encoder_left, elapsed_ms);
   Encoder_UpdateChannel(&encoder_right, elapsed_ms);
 
+#if ENCODER_ENABLE_REPORT
   if ((now_ms - encoder_last_report_ms) >= ENCODER_REPORT_PERIOD_MS)
   {
     encoder_last_report_ms = now_ms;
     Encoder_Report();
   }
+#else
+  encoder_last_report_ms = now_ms;
+#endif
 }
 
 void Encoder_Reset(void)

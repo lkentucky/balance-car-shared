@@ -27,7 +27,9 @@
 #include "encoder.h"
 #include "mpu_app.h"
 #include "motor.h"
+#include "oled.h"
 #include "speed_ctrl.h"
+#include "bluetooth.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +61,26 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static char Main_HexNibble(uint8_t value)
+{
+  value &= 0x0FU;
+
+  if (value < 10U)
+  {
+    return (char)('0' + value);
+  }
+
+  return (char)('A' + value - 10U);
+}
+
+static void Main_FormatHexByte(uint8_t value, char *text)
+{
+  text[0] = '0';
+  text[1] = 'x';
+  text[2] = Main_HexNibble(value >> 4);
+  text[3] = Main_HexNibble(value);
+  text[4] = '\0';
+}
 
 /* USER CODE END 0 */
 
@@ -91,16 +113,26 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+	
+  OLED_Init();
+  OLED_Clear();
+  
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM8_Init();
   MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   Motor_Init();
   Encoder_Init();
   SpeedCtrl_Init();
-  SpeedCtrl_SetTarget(200, 200);
+  SpeedCtrl_SetTarget(500, 500);
   MpuApp_Init();
+  Bluetooth_Init();
+  OLED_Clear();
+  OLED_ShowString(0, 0, (u8 *)"BT WAIT");
+  OLED_ShowString(0, 16, (u8 *)"USART3 9600");
+  OLED_Refresh_Gram();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,6 +142,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    BluetoothCommand_t bt_cmd;
+    BluetoothStatus_t bt_status;
+    uint8_t bt_raw;
+    char bt_raw_text[5];
+
+    if (Bluetooth_ReadCommand(&bt_cmd, &bt_raw) != 0U)
+    {
+      Main_FormatHexByte(bt_raw, bt_raw_text);
+      bt_status = Bluetooth_GetStatus();
+
+      OLED_Clear();
+      OLED_ShowString(0, 0, (u8 *)"BT RX OK");
+      OLED_ShowString(0, 16, (u8 *)"RAW:");
+      OLED_ShowString(32, 16, (u8 *)bt_raw_text);
+      OLED_ShowString(0, 32, (u8 *)"CMD:");
+      OLED_ShowString(32, 32, (u8 *)Bluetooth_GetCommandName(bt_cmd));
+      OLED_ShowString(0, 48, (u8 *)"CNT:");
+      OLED_ShowNumber(32, 48, bt_status.rx_count, 5, 12);
+      OLED_ShowString(80, 48, (u8 *)"OVF:");
+      OLED_ShowNumber(112, 48, bt_status.overflow_count, 2, 12);
+      OLED_Refresh_Gram();
+    }
+
     Encoder_Task();
     SpeedCtrl_Task();
     MpuApp_Task();
@@ -158,6 +213,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  Bluetooth_UART_RxCpltCallback(huart);
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  Bluetooth_UART_ErrorCallback(huart);
+}
 
 /* USER CODE END 4 */
 
@@ -191,5 +255,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/* by codex */
+// by codex
