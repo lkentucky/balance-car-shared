@@ -4,22 +4,19 @@
 #include <stdio.h>
 #include "MPU6050.h"
 
-#define MPU_APP_READ_PERIOD_MS 5U
 #define MPU_APP_PRINT_PERIOD_MS 20U
 
 extern __IO float fAX, fAY, fAZ;
 extern __IO short gx, gy, gz, ax, ay, az;
 
-static uint32_t last_read_ms = 0U;
 static uint32_t last_print_ms = 0U;
-static uint32_t latest_sample_id = 0U;
-static uint8_t latest_valid = 0U;
+static volatile uint32_t latest_sample_id = 0U;
+static volatile uint8_t latest_valid = 0U;
 static MpuApp_Attitude_t latest_attitude;
 
 static void MpuApp_UpdateLatest(MpuApp_Attitude_t *attitude);
 
 uint8_t MpuApp_Init(void) {
-  last_read_ms = 0U;
   last_print_ms = 0U;
   latest_sample_id = 0U;
   latest_valid = 0U;
@@ -40,13 +37,8 @@ void MpuApp_Task(void) {
   MpuApp_Attitude_t attitude;
 
   now_ms = HAL_GetTick();
-  if ((now_ms - last_read_ms) < MPU_APP_READ_PERIOD_MS) return;
-  last_read_ms = now_ms;
-
-  if (MpuApp_Read(&attitude) == 0U) return;
-
   if ((now_ms - last_print_ms) < MPU_APP_PRINT_PERIOD_MS) return;
-  last_print_ms = now_ms;
+  if (MpuApp_GetLatest(&attitude) == 0U) return;
 
  /* printf("%.2f,%.2f,%.2f\r\n",
          (double)attitude.pitch,
@@ -54,6 +46,7 @@ void MpuApp_Task(void) {
          (double)attitude.yaw); */
 	
 	printf("%.2f\r\n", (double)attitude.pitch); 
+  last_print_ms = now_ms;
 }
 
 uint8_t MpuApp_Read(MpuApp_Attitude_t *attitude) {
@@ -82,12 +75,24 @@ uint8_t MpuApp_Read(MpuApp_Attitude_t *attitude) {
 }
 
 uint8_t MpuApp_GetLatest(MpuApp_Attitude_t *attitude) {
-  if ((latest_valid == 0U) || (attitude == NULL)) {
+  uint32_t primask;
+  uint8_t valid;
+
+  if (attitude == NULL) {
     return 0U;
   }
 
-  *attitude = latest_attitude;
-  return 1U;
+  primask = __get_PRIMASK();
+  __disable_irq();
+  valid = latest_valid;
+  if (valid != 0U) {
+    *attitude = latest_attitude;
+  }
+  if (primask == 0U) {
+    __enable_irq();
+  }
+
+  return valid;
 }
 
 static void MpuApp_UpdateLatest(MpuApp_Attitude_t *attitude) {

@@ -9,23 +9,36 @@ extern "C" {
 
 typedef struct
 {
-  float target_pitch;
-  float kp;
-  float ki;
-  float kd;
-  float last_pitch;
-  float integral;
-  int16_t output;
-  uint8_t safe;
-} AnglePidStatus_t;
+    float target_angle;   // 目标平衡角度
+    float actual_angle;   // 当前角度
+    float gyro;           // 当前角速度
+
+    float error;
+    float last_error;
+    float integral;
+
+    float kp;
+    float ki;
+    float kd;
+
+    float avepwm;         // 平均 PWM，由角度环输出
+    float difpwm;         // 差分 PWM，后续给转向环用
+
+    int16_t left_pwm;
+    int16_t right_pwm;
+
+    uint8_t enabled;      // 控制使能
+    uint8_t protect_stop; // 倒车保护标志
+} AnglePid_State_t;
 
 void AnglePid_Init(void);
-void AnglePid_Task(void);
+
+void AnglePid_Reset(void);
+
 void AnglePid_SerialTask(void);
-void AnglePid_Stop(void);
-void AnglePid_SetTarget(float target_pitch);
-void AnglePid_SetGains(float kp, float ki, float kd);
-AnglePidStatus_t AnglePid_GetStatus(void);
+
+void Control_Task_10ms(void);
+
 void AnglePid_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 void AnglePid_UART_ErrorCallback(UART_HandleTypeDef *huart);
 

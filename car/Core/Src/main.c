@@ -51,13 +51,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -114,10 +112,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-	
-  OLED_Init();
-  OLED_Clear();
-  
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM8_Init();
@@ -125,6 +119,7 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   Motor_Init();
+
   /* Encoder_Init(); */
   /* SpeedCtrl_Init(); */
   /* SpeedCtrl_SetTarget(500, 500); */
@@ -166,12 +161,12 @@ int main(void)
       OLED_ShowNumber(112, 48, bt_status.overflow_count, 2, 12);
       OLED_Refresh_Gram();
     }
-
     /* Encoder_Task(); */
     /* SpeedCtrl_Task(); */
+
     AnglePid_SerialTask();
     MpuApp_Task();
-    AnglePid_Task();
+
     HAL_Delay(1);
   }
   /* USER CODE END 3 */
@@ -229,6 +224,28 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   Bluetooth_UART_ErrorCallback(huart);
 }
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  static uint8_t pid_divider = 0U;
+
+  if (GPIO_Pin != MPU_INT_Pin)
+  {
+    return;
+  }
+
+  if (MpuApp_Read(NULL) == 0U)
+  {
+    return;
+  }
+
+  pid_divider++;
+  if (pid_divider >= 2U)
+  {
+    pid_divider = 0U;
+    Control_Task_10ms();
+  }
+}
+
 /* USER CODE END 4 */
 
 /**
@@ -261,4 +278,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-// by codex
+/* by codex */
