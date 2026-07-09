@@ -48,7 +48,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>Objects\</OutputDirectory>
+          <OutputDirectory>Build\</OutputDirectory>
           <OutputName>car</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -397,6 +397,16 @@
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>angle_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/angle_pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>angle_pid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>../Core/Inc/angle_pid.h</FilePath>
             </File>
             <File>
               <FileName>mpu_app.c</FileName>

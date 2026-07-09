@@ -3,7 +3,7 @@
 #include "MPU6050.h"
 
 /* Starting sampling rate. */
-#define DEFAULT_MPU_HZ  (50)
+#define DEFAULT_MPU_HZ  (100)
 #define q30  1073741824.0f
 float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
 __IO float fAX = 0.0f, fAY = 0.0f, fAZ = 0.0f;

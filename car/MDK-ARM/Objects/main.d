@@ -32,6 +32,7 @@ objects\main.o: ../Core/Inc/tim.h
 objects\main.o: ../Core/Inc/usart.h
 objects\main.o: ../Core/Inc/gpio.h
 objects\main.o: ../Core/Inc/encoder.h
+objects\main.o: ../Core/Inc/angle_pid.h
 objects\main.o: ../Core/Inc/mpu_app.h
 objects\main.o: ../Core/Inc/motor.h
 objects\main.o: ..\OLED-Driver\oled.h

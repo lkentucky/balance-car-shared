@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "encoder.h"
+#include "angle_pid.h"
 #include "mpu_app.h"
 #include "motor.h"
 #include "oled.h"
@@ -124,10 +125,11 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   Motor_Init();
-  Encoder_Init();
-  SpeedCtrl_Init();
-  SpeedCtrl_SetTarget(500, 500);
+  /* Encoder_Init(); */
+  /* SpeedCtrl_Init(); */
+  /* SpeedCtrl_SetTarget(500, 500); */
   MpuApp_Init();
+  AnglePid_Init();
   Bluetooth_Init();
   OLED_Clear();
   OLED_ShowString(0, 0, (u8 *)"BT WAIT");
@@ -165,9 +167,11 @@ int main(void)
       OLED_Refresh_Gram();
     }
 
-    Encoder_Task();
-    SpeedCtrl_Task();
+    /* Encoder_Task(); */
+    /* SpeedCtrl_Task(); */
+    AnglePid_SerialTask();
     MpuApp_Task();
+    AnglePid_Task();
     HAL_Delay(1);
   }
   /* USER CODE END 3 */
@@ -215,11 +219,13 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+  AnglePid_UART_RxCpltCallback(huart);
   Bluetooth_UART_RxCpltCallback(huart);
 }
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
+  AnglePid_UART_ErrorCallback(huart);
   Bluetooth_UART_ErrorCallback(huart);
 }
 

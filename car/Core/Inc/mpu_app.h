@@ -9,6 +9,7 @@ extern "C" {
 
 typedef struct
 {
+  uint32_t tick_ms;
   float pitch;
   float roll;
   float yaw;
@@ -22,6 +23,7 @@ typedef struct
 
 uint8_t MpuApp_Init(void);
 uint8_t MpuApp_Read(MpuApp_Attitude_t *attitude);
+uint8_t MpuApp_GetLatest(MpuApp_Attitude_t *attitude);
 void MpuApp_Task(void);
 
 #ifdef __cplusplus

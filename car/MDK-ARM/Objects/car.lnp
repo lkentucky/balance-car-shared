@@ -1,6 +1,7 @@
 --cpu Cortex-M3
 "objects\startup_stm32f103xe.o"
 "objects\motor.o"
+"objects\angle_pid.o"
 "objects\mpu_app.o"
 "objects\encoder.o"
 "objects\speed_ctrl.o"
